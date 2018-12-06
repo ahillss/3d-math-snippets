@@ -577,10 +577,8 @@ float linearDepth(float depth,float zNear,float zFar) {
 ```glsl
 //from glm
 
-//untested
-
-vec3 project(vec3 obj, mat4 modelViewProjMat, vec4 viewport) {
-    vec4 tmp=modelViewProjMat*vec4(obj,1.0);
+vec3 project(vec3 obj, mat4 viewProjMat, vec4 viewport) {
+    vec4 tmp=viewProjMat*vec4(obj,1.0);
     tmp/=tmp.w;
     tmp=tmp*0.5+0.5;
     tmp.xy*=viewport.zw;
@@ -588,12 +586,12 @@ vec3 project(vec3 obj, mat4 modelViewProjMat, vec4 viewport) {
     return tmp;
 } 
 
-vec3 unproject(vec3 win, mat4 invModelViewProjMat, vec4 viewport) {
+vec3 unproject(vec3 win, mat4 invViewProjMat, vec4 viewport) {
     vec4 tmp = vec4(win, 1.0);
     tmp.xy-=viewport.xy;
     tmp.xy/=viewport.zw;
     tmp = tmp * 2.0 - 1.0;
-    vec4 obj = invModelViewProjMat*tmp;
+    vec4 obj = invViewProjMat*tmp;
     return obj.xyz/obj.w;
 }
 ```
