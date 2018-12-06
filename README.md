@@ -575,7 +575,7 @@ float linearDepth(float depth,float zNear,float zFar) {
 ```
 
 ```glsl
-//
+//from glm
 
 vec3 project(vec3 obj, mat4 modelViewProjMat, vec4 viewport) {
     vec4 tmp=modelViewProjMat*vec4(obj,1.0);
