@@ -543,6 +543,7 @@ mat4 frustum_infinite(float left,float right,float bottom,float top,float zNear)
     return m;
 }
 
+```glsl
 //
 
 float posToNdcDepth(float zpos,float zNear,float zFar) {
@@ -569,7 +570,9 @@ vec3 depthToPos(mat4 invProjMat,vec2 scr,float depth) {
 float linearDepth(float depth,float zNear,float zFar) {
     return (2.0*zNear)/(zFar+zNear-depth*(zFar-zNear));
 }
+```
 
+```glsl
 //
 
 vec3 project(vec3 obj, mat4 modelViewProjMat, vec4 viewport) {
