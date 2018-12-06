@@ -1,6 +1,7 @@
 # Math Snippets
 
 ## intersections
+
 ```glsl
 bool intersectPlane(vec3 P,vec3 V,vec4 plane, out float t) {
     //Ax+By+Cz+D=0
@@ -140,6 +141,7 @@ bool intersectTriangle(vec3 ro,vec3 rd,vec3 p0,vec3 p1,vec3 p2,out vec2 bcOut,ou
     return true;
 }
 ```
+
 ## barycentric
 
 ```glsl
@@ -208,6 +210,7 @@ float udTriangle( vec3 p, vec3 a, vec3 b, vec3 c ) {
 ```
 
 ## raytracing main
+
 ```glsl
 vec3 render(vec3 ro,vec3 rd,vec2 uv) {
     return vec3(uv,0.5+0.5*sin(iTime));
@@ -240,6 +243,7 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord) {
 ```
 
 ## rotations
+
 ```glsl
 mat3 rotateAt(vec3 eye,vec3 at,vec3 up) {
   vec3 z=normalize(eye-at);
@@ -302,6 +306,7 @@ mat3 rotMatFromNormal(vec3 n,vec3 r) {
 ```
 
 ## procedural textures
+
 ```glsl
 //from geeks3d.com/20140201/glsl-menger-sponge-raymarching-code-samples-updated
 
@@ -365,6 +370,7 @@ vec3 calcSky(vec3 d) {
 ```
 
 ## texture mapping
+
 ```glsl
 //from github.com/tunabrain/tungsten/blob/master/src/core/primitives/Skydome.cpp
 // use linear for texture mag/min filters
@@ -390,6 +396,7 @@ vec2 genTexCoords(vec3 pt,vec3 nor,mat3 m) {
 ```
 
 ## random
+
 ```glsl
 //from unknown
 
@@ -408,6 +415,7 @@ vec2 rand2(vec2 co){
 ```
 
 ## lights
+
 ```glsl
 vec3 calcPtLightCol(vec3 P,vec3 N,vec3 lPos,vec3 lAtten,vec3 mCol,vec3 lCol,float shininess,float strength) {
     vec3 L=lPos.xyz-P;
@@ -426,38 +434,22 @@ vec3 calcPtLightCol(vec3 P,vec3 N,vec3 lPos,vec3 lAtten,vec3 mCol,vec3 lCol,floa
 //atten*=(spotCos<spotCosCutoff)?0.0:pow(spotCos,spotExponent);
 ```
 
-## misc
 ```glsl
-vec3 orthog(vec3 a,vec3 b) {
-    return normalize(a-b*dot(b,a)); //orthoganize a
-}
+//from blender
 
-float calcVecAngle(vec3 v0,vec3 v1) {
-    float l=length(v0)*length(v1);
-    float d=dot(v0,v1);
-    return acos(d/l);
-}
+I = E * (D / (D + L * r))
+I = E * (D / (D + L * r)) * (D*D / (D*D + Q * r*r))
+Where
+I is the calculated Intensity of light.
+E is the current Energy slider setting.
+D is the current setting of the Dist field.
+L is the current setting of the Linear slider.
+Q is the current setting of the Quad slider.
+r is the distance from the lamp where the light intensity gets measured.
 
-//
+Inverse Square: Linear to 0.0 and Quad to 1.0),
 
-#define PI 3.14159265359
-
-//from en.wikipedia.org/wiki/Atan2#Definition_and_computation
-
-float atan2(float y,float x) {  
-    if(x>0.0) {
-        return atan(y/x);
-    } else if(y>0.0) {
-        return PI/2.0-atan(x/y);
-    } else if(y<0.0) {
-        return -PI/2.0 -atan(x/y);
-    } else if(x<0.0) {
-        return atan(y/x)+PI;
-    }
-
-    return 0.0;
-}
-
+Inverse Linear: Linear to 1.0 and Quad to 0.0. 
 ```
 
 ## keyframes
@@ -660,5 +652,39 @@ r = tan(theta); //theta is max angle from the z axis (cone's width is 2*theta)
 Vector v(r*x, r*y, 1);
 v.Normalize();
 
+```
+
+## misc
+
+```glsl
+vec3 orthog(vec3 a,vec3 b) {
+    return normalize(a-b*dot(b,a)); //orthoganize a
+}
+
+float calcVecAngle(vec3 v0,vec3 v1) {
+    float l=length(v0)*length(v1);
+    float d=dot(v0,v1);
+    return acos(d/l);
+}
+
+//
+
+#define PI 3.14159265359
+
+//from en.wikipedia.org/wiki/Atan2#Definition_and_computation
+
+float atan2(float y,float x) {  
+    if(x>0.0) {
+        return atan(y/x);
+    } else if(y>0.0) {
+        return PI/2.0-atan(x/y);
+    } else if(y<0.0) {
+        return -PI/2.0 -atan(x/y);
+    } else if(x<0.0) {
+        return atan(y/x)+PI;
+    }
+
+    return 0.0;
+}
 
 ```
