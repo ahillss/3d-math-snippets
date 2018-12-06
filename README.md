@@ -139,7 +139,10 @@ bool intersectTriangle(vec3 ro,vec3 rd,vec3 p0,vec3 p1,vec3 p2,out vec2 bcOut,ou
     bcOut=vec2(b1,b2);
     return true;
 }
+```
+## barycentric
 
+```glsl
 float fromBarycentric(float b1,float b2,float a0,float a1,float a2) {
     return (1.0-b1-b2 )*a0+b1*a1+b2*a2;
 }
@@ -154,6 +157,26 @@ vec3 fromBarycentric(float b1,float b2,vec3 a0,vec3 a1,vec3 a2) {
 
 vec4 fromBarycentric(float b1,float b2,vec4 a0,vec4 a1,vec4 a2) {
     return (1.0-b1-b2 )*a0+b1*a1+b2*a2;
+}
+```
+
+```glsl
+//from gamedev.stackexchange.com/questions/23743
+
+vec3 barycentric(vec3 p, vec3 a, vec3 b, vec3 c) {
+    vec3 v0 = b - a; //
+    vec3 v1 = c - a; //
+    vec3 v2 = p - a;
+    float d00 = dot(v0, v0); //
+    float d01 = dot(v0, v1); //
+    float d11 = dot(v1, v1); //
+    float d20 = dot(v2, v0);
+    float d21 = dot(v2, v1);
+    float invDenom = 1.0/(d00 * d11 - d01 * d01); //
+    float v = (d11 * d20 - d01 * d21) * invDenom;
+    float w = (d00 * d21 - d01 * d20) * invDenom;
+    float u = 1.0 - v - w;
+    return vec3(u,v,w);
 }
 ```
 
