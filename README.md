@@ -692,4 +692,14 @@ float atan2(float y,float x) {
     return 0.0;
 }
 
+vec4 planeFromPtNor(vec3 pt, vec3 n) {
+    //ax+by+cz+d=0
+    return vec4(n,-dot(pt,n));
+}
+
+vec4 planeFromTri(vec3 pt0, vec3 pt1, vec3 pt2) {
+    //ax+by+cz+d=0    
+    vec3 n=normalize(cross(p1-pt0,pt2-pt0));
+    return planeFromPtNor(pt0, n);
+}
 ```
