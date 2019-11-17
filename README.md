@@ -705,11 +705,14 @@ vec4 planeFromTri(vec3 pt0, vec3 pt1, vec3 pt2) {
 
 //from stackoverflow.com/questions/3120357/get-closest-point-to-a-line#9557244
 
+//untested
+
 vec3 closestPointOnLine(vec3 p0, vec3 p1, vec3 X) {
     vec3 e0 = p1 - p0; 
     vec3 e1 = X - p0;
     float d = dot(e1, e0) / (len(e0) * len(e0));
-    return (d < 0.0) ? p0 : ((d > 1.0) ? p1 : p0 + e0 * d);
+    // return (d < 0.0) ? p0 : ((d > 1.0) ? p1 : p0 + e0 * d);
+    return (d > 1.0) ? p1 : p0 + e0 * max(0.0,d);
 }
 
 ```
