@@ -715,4 +715,33 @@ vec3 closestPointOnLine(vec3 p0, vec3 p1, vec3 X) {
     return (d > 1.0) ? p1 : p0 + e0 * max(0.0,d);
 }
 
+//from lighthouse3d.com/tutorials/view-frustum-culling/geometric-approach-testing-boxes-ii/
+
+//untested
+
+int boxInFrustum(vec4 frustum[6], vec3 bmin, vec3 bmax) {
+    int r=2; //inside
+
+    for(int i=0;i<6;i++) {
+        vec3 n=frustum[i].xyz*-1.0;
+        
+        vec3 bp,bn;
+        
+        bp.x= (n.x<0.0)?bmin.x:bmax.x;
+        bp.y= (n.y<0.0)?bmin.y:bmax.y;
+        bp.z= (n.z<0.0)?bmin.z:bmax.z;
+        
+        bn.x= (n.x<0.0)?bmax.x:bmin.x;
+        bn.y= (n.y<0.0)?bmax.y:bmin.y;
+        bn.z= (n.z<0.0)?bmax.z:bmin.z;
+        
+        if (dot(n,bp)+frustum[i].w < 0.0) {
+            return 0; //outside
+        } else if (frustum[i].w+dot(n,bn) < 0.0) { // <= ?
+            r=1; //intersect
+        }
+    }
+    
+    return r;
+}
 ```
