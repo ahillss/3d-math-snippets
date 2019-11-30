@@ -737,7 +737,7 @@ int boxInFrustum(vec4 frustum[6], vec3 bmin, vec3 bmax) {
         
         if (dot(n,bp)+frustum[i].w < 0.0) {
             return 0; //outside
-        } else if (frustum[i].w+dot(n,bn) < 0.0) { // <= ?
+        } else if (dot(n,bn)+frustum[i].w < 0.0) { // <= ?
             r=1; //intersect
         }
     }
