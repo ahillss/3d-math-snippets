@@ -309,6 +309,7 @@ mat3 rotMatFromNormal(vec3 n,vec3 r) {
 
 ```glsl
 
+//from madebyevan.com/shaders/grid
 vec3 checker(vec2 tc,vec3 c0,vec3 c1,float m) {
     vec3 a = (mod((floor(tc.x)+floor(tc.y)),2.0) == 0.0)?c0:c1;
     vec2 grid = abs(fract(tc - 0.5) - 0.5) / 0.05;
