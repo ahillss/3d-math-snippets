@@ -308,6 +308,14 @@ mat3 rotMatFromNormal(vec3 n,vec3 r) {
 ## procedural textures
 
 ```glsl
+
+vec3 checker(vec2 tc,vec3 c0,vec3 c1,float m) {
+    vec3 a = (mod((floor(tc.x)+floor(tc.y)),2.0) == 0.0)?c0:c1;
+    vec2 grid = abs(fract(tc - 0.5) - 0.5) / 0.05;
+    vec3 b=vec3(min(min(grid.x, grid.y)+0.5, 1.0));
+    return mix(a,b,m);
+}
+
 //from geeks3d.com/20140201/glsl-menger-sponge-raymarching-code-samples-updated
 
 vec3 floor_color(in vec3 p, float scale,vec3 color0, vec3 color1, vec3 color2) {
