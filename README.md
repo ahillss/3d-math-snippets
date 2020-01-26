@@ -509,8 +509,6 @@ mat4 perspective_fovy(float fovy,float aspect,float zNear,float zFar) {
     return frustum(-right,right,-top,top,zNear,zFar);
 }
 
-//untested
-
 mat4 ortho(float left,float right,float bottom,float top,float zNear,float zFar) { 
     mat4 m=mat4(1.0);
     m[0][0]=2.0/(right-left);
@@ -577,23 +575,16 @@ float linearDepth(float depth,float zNear,float zFar) {
 ```glsl
 //from glm
 
-vec3 project(vec3 obj, mat4 viewProjMat, vec4 viewport) {
-    vec4 tmp=viewProjMat*vec4(obj,1.0);
-    tmp/=tmp.w;
-    tmp=tmp*0.5+0.5;
-    tmp.xy*=viewport.zw;
-    tmp.xy+=viewport.xy;
-    return tmp;
+vec2 project(vec3 worldPos, mat4 viewProjMat, vec4 viewport) {
+    vec4 tmp=viewProjMat*vec4(worldPos,1.0);
+    return ((tmp.xy/tmp.w)*0.5+0.5)*viewport.zw+viewport.xy;
 } 
 
-vec3 unproject(vec3 win, mat4 invViewProjMat, vec4 viewport) {
-    vec4 tmp = vec4(win, 1.0);
-    tmp.xy-=viewport.xy;
-    tmp.xy/=viewport.zw;
-    tmp = tmp * 2.0 - 1.0;
-    vec4 obj = invViewProjMat*tmp;
+vec3 unproject(vec2 screenPos, mat4 invViewProjMat, vec4 viewport) {
+    vec4 obj = invViewProjMat*(((screenPos-viewport.xy)/viewport.zw)*2.0-1.0,0.0,1.0);
     return obj.xyz/obj.w;
 }
+
 ```
 
 ## jittering
