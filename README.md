@@ -745,3 +745,14 @@ int boxInFrustum(vec4 frustum[6], vec3 bmin, vec3 bmax) {
     return r;
 }
 ```
+
+##int
+```glsl
+
+//from stackoverflow.com/questions/2422712
+
+uint div_round(uint x,uint d) {
+    return (x+d/2)/d;
+}
+
+```
