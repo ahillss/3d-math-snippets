@@ -746,7 +746,7 @@ int boxInFrustum(vec4 frustum[6], vec3 bmin, vec3 bmax) {
 }
 ```
 
-##int
+## integer math
 ```glsl
 
 //from stackoverflow.com/questions/2422712
